@@ -1,0 +1,478 @@
+{
+ "awacs_missile": {
+  "file": "assets/audio/voice/awacs_missile.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Missile, missile! Viper One, break!",
+  "dur": 2.47
+ },
+ "wing_missile": {
+  "file": "assets/audio/voice/wing_missile.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "You've got a missile on your six, break right!",
+  "dur": 2.7
+ },
+ "wing_hit": {
+  "file": "assets/audio/voice/wing_hit.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "Viper One, you're hit! Shake it off!",
+  "dur": 2.66
+ },
+ "awacs_damage": {
+  "file": "assets/audio/voice/awacs_damage.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Viper One, you're taking heavy damage. Watch yourself.",
+  "dur": 3.33
+ },
+ "awacs_ship": {
+  "file": "assets/audio/voice/awacs_ship.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Enemy vessel destroyed.",
+  "dur": 1.59
+ },
+ "wing_nice": {
+  "file": "assets/audio/voice/wing_nice.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "Nice shooting, lead!",
+  "dur": 1.66
+ },
+ "awacs_ace_down": {
+  "file": "assets/audio/voice/awacs_ace_down.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Enemy ace is going down!",
+  "dur": 1.75
+ },
+ "wing_splash": {
+  "file": "assets/audio/voice/wing_splash.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "Splash one!",
+  "dur": 1.18
+ },
+ "awacs_splash": {
+  "file": "assets/audio/voice/awacs_splash.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Good kill, good kill.",
+  "dur": 1.82
+ },
+ "awacs_good": {
+  "file": "assets/audio/voice/awacs_good.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Target destroyed. Keep it up, Viper One.",
+  "dur": 2.63
+ },
+ "cat_shoot": {
+  "file": "assets/audio/voice/cat_shoot.mp3",
+  "speaker": "ACED CONTROL",
+  "color": "#ffd34a",
+  "text": "Shooter's away. Go get 'em, Viper.",
+  "dur": 3.57
+ },
+ "tower_airborne": {
+  "file": "assets/audio/voice/tower_airborne.mp3",
+  "speaker": "ACED CONTROL",
+  "color": "#ffd34a",
+  "text": "Viper One airborne. Good luck.",
+  "dur": 2.76
+ },
+ "lso_trap": {
+  "file": "assets/audio/voice/lso_trap.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Trap! Welcome home, Viper One.",
+  "dur": 8.4
+ },
+ "lso_vtol": {
+  "file": "assets/audio/voice/lso_vtol.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Nice and gentle. Viper One is on deck.",
+  "dur": 4.55
+ },
+ "lso_bolter": {
+  "file": "assets/audio/voice/lso_bolter.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Bolter, bolter! Power up and go around!",
+  "dur": 3.71
+ },
+ "lso_ball": {
+  "file": "assets/audio/voice/lso_ball.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Viper One, call the ball. Follow the meatball, keep it centered.",
+  "dur": 4.4
+ },
+ "lso_high": {
+  "file": "assets/audio/voice/lso_high.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "You're high. Ease it down.",
+  "dur": 3.2
+ },
+ "lso_low": {
+  "file": "assets/audio/voice/lso_low.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Power! You're low!",
+  "dur": 2.83
+ },
+ "lso_lineup": {
+  "file": "assets/audio/voice/lso_lineup.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Watch your line-up.",
+  "dur": 1.67
+ },
+ "lso_vtol_hint": {
+  "file": "assets/audio/voice/lso_vtol_hint.mp3",
+  "speaker": "PADDLES",
+  "color": "#ffd34a",
+  "text": "Hold brake to transition to hover, then settle onto the deck.",
+  "dur": 3.63
+ },
+ "instr_welcome": {
+  "file": "assets/audio/voice/instr_welcome.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Welcome to basic flight training, Viper One. Hold your phone upright, like a steering wheel.",
+  "dur": 5.59
+ },
+ "instr_turn": {
+  "file": "assets/audio/voice/instr_turn.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Tilt the phone left or right to bank and turn. Fly through the gates.",
+  "dur": 3.91
+ },
+ "instr_pitch": {
+  "file": "assets/audio/voice/instr_pitch.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Lean the top of the phone to pitch up or down. Climb through the high gate, then dive through the low one.",
+  "dur": 5.66
+ },
+ "instr_boost": {
+  "file": "assets/audio/voice/instr_boost.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Hold boost for afterburner. Brake to slow down. Speed is life, but don't let her stall.",
+  "dur": 5.59
+ },
+ "instr_gun": {
+  "file": "assets/audio/voice/instr_gun.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Target drones ahead. Get close, put the circle on them, and hold the gun button.",
+  "dur": 5.05
+ },
+ "instr_msl": {
+  "file": "assets/audio/voice/instr_msl.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Now missiles. Keep a target in front of you until the diamond turns red, then tap missile.",
+  "dur": 5.47
+ },
+ "instr_tgt": {
+  "file": "assets/audio/voice/instr_tgt.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Tap target to switch between targets. Tap S P for your special weapon. It can lock several targets at once.",
+  "dur": 6.79
+ },
+ "instr_done": {
+  "file": "assets/audio/voice/instr_done.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Outstanding flying. You're cleared for combat operations, Viper One.",
+  "dur": 4.56
+ },
+ "instr_good": {
+  "file": "assets/audio/voice/instr_good.mp3",
+  "speaker": "INSTRUCTOR",
+  "color": "#f2f6f8",
+  "text": "Good.",
+  "dur": 0.76
+ },
+ "tower_cat": {
+  "file": "assets/audio/voice/tower_cat.mp3",
+  "speaker": "ACED CONTROL",
+  "color": "#ffd34a",
+  "text": "Viper One, you're hooked up on cat one. Hold boost to launch.",
+  "dur": 4.68
+ },
+ "m1_start": {
+  "file": "assets/audio/voice/m1_start.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Overwatch to Viper One. Four bandits and two bombers inbound from the north. Protect the carrier at all costs.",
+  "dur": 6.42
+ },
+ "m1_bombers": {
+  "file": "assets/audio/voice/m1_bombers.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Priority targets are the bombers. Don't let them reach the fleet.",
+  "dur": 3.67
+ },
+ "m1_wave2": {
+  "file": "assets/audio/voice/m1_wave2.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "More contacts on radar. Second wave, bearing three five zero.",
+  "dur": 4.43
+ },
+ "m1_rtb": {
+  "file": "assets/audio/voice/m1_rtb.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Airspace is clear. Viper One, return to mother. You're cleared to land.",
+  "dur": 4.23
+ },
+ "m1_carrier_hit": {
+  "file": "assets/audio/voice/m1_carrier_hit.mp3",
+  "speaker": "ACED CONTROL",
+  "color": "#ffd34a",
+  "text": "We've been hit! The carrier is taking damage!",
+  "dur": 2.97
+ },
+ "wing_join": {
+  "file": "assets/audio/voice/wing_join.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "Viper Two, on your wing. Let's dance.",
+  "dur": 3.0
+ },
+ "m2_start": {
+  "file": "assets/audio/voice/m2_start.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Viper One, enemy fighters are hiding in the cloud layer. Clear the sky.",
+  "dur": 4.01
+ },
+ "m2_wave2": {
+  "file": "assets/audio/voice/m2_wave2.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Second squadron climbing out of the clouds. Engage.",
+  "dur": 3.35
+ },
+ "m2_wave3": {
+  "file": "assets/audio/voice/m2_wave3.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Watch it, these two are flying differently. Aces.",
+  "dur": 2.82
+ },
+ "m2_end": {
+  "file": "assets/audio/voice/m2_end.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "That's the last of them. Outstanding work up here, Viper One.",
+  "dur": 3.4
+ },
+ "wing_clouds": {
+  "file": "assets/audio/voice/wing_clouds.mp3",
+  "speaker": "VIPER 2",
+  "color": "#8cff9a",
+  "text": "I can't see a thing in these clouds!",
+  "dur": 2.61
+ },
+ "m3_start": {
+  "file": "assets/audio/voice/m3_start.mp3",
+  "speaker": "RAPTOR 1",
+  "color": "#8cff9a",
+  "text": "Spirit, this is Raptor One. We'll keep the fighters off you. Put steel on those ships.",
+  "dur": 6.14
+ },
+ "m3_fleet": {
+  "file": "assets/audio/voice/m3_fleet.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Enemy fleet in range. Five destroyers. Drop when ready.",
+  "dur": 3.68
+ },
+ "m3_fighters": {
+  "file": "assets/audio/voice/m3_fighters.mp3",
+  "speaker": "RAPTOR 1",
+  "color": "#8cff9a",
+  "text": "Bandits scrambling! Raptors, engage!",
+  "dur": 3.21
+ },
+ "m3_flares": {
+  "file": "assets/audio/voice/m3_flares.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Spirit, use your flares against incoming missiles.",
+  "dur": 3.32
+ },
+ "m3_end": {
+  "file": "assets/audio/voice/m3_end.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Fleet neutralized. Spirit, turn for home. Good hunting.",
+  "dur": 3.61
+ },
+ "m4_start": {
+  "file": "assets/audio/voice/m4_start.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Viper One, enemy surface group to the east, with air cover. Guided bombs are cleared hot.",
+  "dur": 5.24
+ },
+ "m4_mid": {
+  "file": "assets/audio/voice/m4_mid.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Half the fleet is burning. Keep pressing.",
+  "dur": 2.4
+ },
+ "m4_end": {
+  "file": "assets/audio/voice/m4_end.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Surface group destroyed. Nice work, Viper One.",
+  "dur": 3.14
+ },
+ "m5_start": {
+  "file": "assets/audio/voice/m5_start.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Raid incoming! Six bombers with fighter escort, heading straight for the carrier.",
+  "dur": 4.55
+ },
+ "m5_mid": {
+  "file": "assets/audio/voice/m5_mid.mp3",
+  "speaker": "ACED CONTROL",
+  "color": "#ffd34a",
+  "text": "Bombers closing on the fleet. Stop them, Viper!",
+  "dur": 3.9
+ },
+ "m5_land": {
+  "file": "assets/audio/voice/m5_land.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Raid repelled. Viper One, bring your Lightning home. Vertical landing approved.",
+  "dur": 4.55
+ },
+ "m6_start": {
+  "file": "assets/audio/voice/m6_start.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Viper One, four contacts above the clouds. Red tails. It's the Crimson squadron.",
+  "dur": 5.16
+ },
+ "m6_crimson1": {
+  "file": "assets/audio/voice/m6_crimson1.mp3",
+  "speaker": "CRIMSON 1",
+  "color": "#ff4a3d",
+  "text": "So you're the one they call Viper. Let's see if you live up to it.",
+  "dur": 5.37
+ },
+ "m6_crimson2": {
+  "file": "assets/audio/voice/m6_crimson2.mp3",
+  "speaker": "CRIMSON 1",
+  "color": "#ff4a3d",
+  "text": "Not bad. Crimson flight, break and attack!",
+  "dur": 4.32
+ },
+ "m6_crimson3": {
+  "file": "assets/audio/voice/m6_crimson3.mp3",
+  "speaker": "CRIMSON 1",
+  "color": "#ff4a3d",
+  "text": "Impossible! Nobody flies like that!",
+  "dur": 3.66
+ },
+ "m6_lead": {
+  "file": "assets/audio/voice/m6_lead.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Only the leader remains. Take him down, Viper One!",
+  "dur": 3.39
+ },
+ "m6_end": {
+  "file": "assets/audio/voice/m6_end.mp3",
+  "speaker": "OVERWATCH",
+  "color": "#6fd0ff",
+  "text": "Crimson One is down! Viper One, you are the ace of aces.",
+  "dur": 3.69
+ },
+ "bandit_1": {
+  "file": "assets/audio/voice/bandit_1.mp3",
+  "speaker": "BANDIT",
+  "color": "#ff6a5d",
+  "text": "Enemy fighter spotted! Engage!",
+  "dur": 2.93
+ },
+ "bandit_2": {
+  "file": "assets/audio/voice/bandit_2.mp3",
+  "speaker": "BANDIT",
+  "color": "#ff6a5d",
+  "text": "He's on my tail! Get him off me!",
+  "dur": 2.7
+ },
+ "bandit_3": {
+  "file": "assets/audio/voice/bandit_3.mp3",
+  "speaker": "BANDIT",
+  "color": "#ff6a5d",
+  "text": "That pilot is a demon!",
+  "dur": 1.96
+ },
+ "brief_m0": {
+  "file": "assets/audio/voice/brief_m0.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "Basic training. Learn to fly, to shoot, and to lock missiles. Live fire drones only. Nobody shoots back.",
+  "dur": 8.23
+ },
+ "brief_m1": {
+  "file": "assets/audio/voice/brief_m1.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "Dawn patrol off the coast. Launch from the carrier, intercept an enemy strike package, and land back on deck.",
+  "dur": 7.51
+ },
+ "brief_m2": {
+  "file": "assets/audio/voice/brief_m2.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "Enemy fighters are operating above a solid cloud deck. Climb, find them, and clear the sky.",
+  "dur": 6.35
+ },
+ "brief_m3": {
+  "file": "assets/audio/voice/brief_m3.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "Take the B-2 Spirit deep into enemy waters. Raptors will escort you. Destroy the enemy fleet.",
+  "dur": 7.06
+ },
+ "brief_m4": {
+  "file": "assets/audio/voice/brief_m4.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "An enemy surface group is shelling the coast. Use guided bombs to sink every ship.",
+  "dur": 5.55
+ },
+ "brief_m5": {
+  "file": "assets/audio/voice/brief_m5.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "Bombers are heading for our carrier. Launch, intercept, and bring your F-35B back with a vertical landing.",
+  "dur": 7.62
+ },
+ "brief_m6": {
+  "file": "assets/audio/voice/brief_m6.mp3",
+  "speaker": "BRIEFING",
+  "color": "#f2f6f8",
+  "text": "The Crimson squadron. The best they have. Four aces, one sky. Only one of you comes home.",
+  "dur": 6.72
+ }
+}

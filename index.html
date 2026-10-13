@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ACED COMBAT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#05080d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ACED COMBAT">
+<meta name="description" content="ACED COMBAT – arcade jet combat in your phone browser. Fly the F-15C, F-22A, F-35A/B and B-2 above the clouds and off a carrier. Tilt to fly.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ACED COMBAT">
+<meta property="og:title" content="ACED COMBAT – Tilt to fly. Lock. Fox two.">
+<meta property="og:description" content="Arcade jet combat in the phone browser: F-15C, F-22A, F-35A/B and B-2 Spirit. Dogfights above the clouds, carrier launches and landings. Blender-rendered, plays in Safari.">
+<meta property="og:url" content="https://simon23-12.github.io/AcedCombat/">
+<meta property="og:image" content="https://simon23-12.github.io/AcedCombat/assets/ui/og.jpg">
+<meta property="og:image:secure_url" content="https://simon23-12.github.io/AcedCombat/assets/ui/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An F-22 Raptor and F-15 Eagle above a sea of clouds at sunset">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://simon23-12.github.io/AcedCombat/assets/ui/og.jpg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/ui/icon-180.png">
+<link rel="icon" href="assets/ui/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="gl"></canvas>
+<canvas id="hudcv"></canvas>
+
+<!-- ======================================================= in-flight -->
+<div id="flight" class="hidden">
+  <div id="topbar">
+    <div id="timer">00:00</div>
+    <div id="score">0</div>
+    <button id="b-pause" aria-label="Pause">II</button>
+  </div>
+  <div id="obj" class="hidden"></div>
+  <div id="hud-msg"></div>
+  <div id="subs" class="hidden"></div>
+  <div id="prompt" class="hidden"></div>
+  <button id="b-skip" class="hidden">SKIP LANDING ›</button>
+  <div id="pads">
+    <div class="pad-l">
+      <button id="b-boost" class="btn big"><span>BOOST</span></button>
+      <button id="b-brake" class="btn mid"><span>BRAKE</span></button>
+      <button id="b-flare" class="btn small hidden"><span>FLARE</span></button>
+    </div>
+    <div class="pad-r">
+      <button id="b-msl" class="btn big accent"><span id="msl-label">MSL</span></button>
+      <button id="b-gun" class="btn big"><span>GUN</span></button>
+      <button id="b-sp" class="btn small"><span>SP</span></button>
+      <button id="b-tgt" class="btn small"><span>TGT</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================= title -->
+<div id="title" class="screen">
+  <div class="title-art"></div>
+  <div class="title-in">
+    <div class="logo"><span class="l1">ACED</span><span class="l2">COMBAT</span></div>
+    <div class="tag">TILT · LOCK · FOX TWO</div>
+    <div id="load"><div id="load-bar"><i></i></div><div id="load-txt">BOOTING…</div></div>
+    <button id="press" class="hidden">TAP TO START</button>
+    <div class="foot">Hold your phone upright · sound on · best in Safari / Chrome</div>
+  </div>
+</div>
+
+<!-- ======================================================= main menu -->
+<div id="menu" class="screen hidden">
+  <div class="menu-head"><div class="logo small"><span class="l1">ACED</span><span class="l2">COMBAT</span></div></div>
+  <div class="menu-list">
+    <button data-go="campaign" class="mi"><b>CAMPAIGN</b><span>Six missions over the ocean and above the clouds</span></button>
+    <button data-go="training" class="mi"><b>TRAINING</b><span>Learn to fly, shoot and lock</span></button>
+    <button data-go="hangar" class="mi"><b>HANGAR</b><span>Aircraft and unlocks</span></button>
+    <button data-go="settings" class="mi"><b>SETTINGS</b><span>Graphics, controls, audio</span></button>
+  </div>
+  <div class="menu-foot" id="menu-foot"></div>
+</div>
+
+<!-- ======================================================= campaign -->
+<div id="campaign" class="screen hidden">
+  <div class="scr-head"><button class="back">‹</button><h2>CAMPAIGN</h2></div>
+  <div id="mission-list" class="mlist"></div>
+</div>
+
+<!-- ======================================================= briefing / aircraft select -->
+<div id="briefing" class="screen hidden">
+  <div class="scr-head"><button class="back">‹</button><h2 id="br-code">MISSION</h2></div>
+  <div class="br-card">
+    <div id="br-title" class="br-title"></div>
+    <div id="br-text" class="br-text"></div>
+  </div>
+  <div class="ac-select">
+    <button id="ac-prev" class="ac-nav">‹</button>
+    <div class="ac-info">
+      <div id="ac-name" class="ac-name"></div>
+      <div id="ac-role" class="ac-role"></div>
+      <div id="ac-stats" class="ac-stats"></div>
+    </div>
+    <button id="ac-next" class="ac-nav">›</button>
+  </div>
+  <button id="sortie" class="cta">SORTIE</button>
+</div>
+
+<!-- ======================================================= hangar -->
+<div id="hangar" class="screen hidden">
+  <div class="scr-head"><button class="back">‹</button><h2>HANGAR</h2></div>
+  <div class="ac-select">
+    <button id="hg-prev" class="ac-nav">‹</button>
+    <div class="ac-info">
+      <div id="hg-name" class="ac-name"></div>
+      <div id="hg-role" class="ac-role"></div>
+      <div id="hg-desc" class="ac-desc"></div>
+      <div id="hg-stats" class="ac-stats"></div>
+    </div>
+    <button id="hg-next" class="ac-nav">›</button>
+  </div>
+</div>
+
+<!-- ======================================================= settings -->
+<div id="settings" class="screen hidden">
+  <div class="scr-head"><button class="back">‹</button><h2>SETTINGS</h2></div>
+  <div class="set-list">
+    <div class="set-row"><span>GRAPHICS</span>
+      <div class="chips" id="q-chips"><button data-q="low">LOW</button><button data-q="medium">MED</button><button data-q="high">HIGH</button><button data-q="ultra">ULTRA</button></div>
+    </div>
+    <div class="set-row"><span>CONTROLS</span>
+      <div class="chips" id="c-chips"><button data-c="assist">STANDARD</button><button data-c="expert">EXPERT</button></div>
+    </div>
+    <label class="set-row"><span>TILT SENSITIVITY</span><input id="s-sens" type="range" min="0.5" max="2" step="0.05" value="1"></label>
+    <div class="set-row"><span>PITCH</span><div class="chips" id="i-chips"><button data-i="0">NORMAL</button><button data-i="1">INVERTED</button></div></div>
+    <label class="set-row"><span>MUSIC</span><input id="s-music" type="range" min="0" max="1" step="0.05" value="0.7"></label>
+    <label class="set-row"><span>EFFECTS</span><input id="s-sfx" type="range" min="0" max="1" step="0.05" value="0.85"></label>
+    <label class="set-row"><span>RADIO</span><input id="s-voice" type="range" min="0" max="1" step="0.05" value="1"></label>
+    <div class="set-row"><span>STATS</span><div class="chips" id="f-chips"><button data-f="0">OFF</button><button data-f="1">FPS</button></div></div>
+  </div>
+</div>
+
+<!-- ======================================================= pause -->
+<div id="pause" class="screen dim hidden">
+  <div class="pause-box">
+    <h2>PAUSED</h2>
+    <button id="p-resume" class="cta">RESUME</button>
+    <button id="p-cal">RECENTER TILT</button>
+    <button id="p-restart">RESTART MISSION</button>
+    <button id="p-settings">SETTINGS</button>
+    <button id="p-quit">QUIT TO MENU</button>
+  </div>
+</div>
+
+<!-- ======================================================= debrief -->
+<div id="debrief" class="screen dim hidden">
+  <div class="db-box">
+    <div id="db-res" class="db-res">MISSION ACCOMPLISHED</div>
+    <div id="db-title" class="db-title"></div>
+    <div class="db-grid">
+      <div><span>TIME</span><b id="db-time">--</b></div>
+      <div><span>KILLS</span><b id="db-kills">--</b></div>
+      <div><span>SCORE</span><b id="db-score">--</b></div>
+      <div><span>RANK</span><b id="db-rank" class="rank">--</b></div>
+    </div>
+    <div id="db-extra" class="db-extra"></div>
+    <button id="db-next" class="cta">CONTINUE</button>
+    <button id="db-retry">RETRY</button>
+  </div>
+</div>
+
+<div id="rotate" class="hidden"><div>⟳</div><p>Please hold your phone in <b>portrait</b>.</p></div>
+<div id="fatal" class="hidden"></div>
+<div id="fps" class="hidden"></div>
+
+<script type="module" src="dist/game.js"></script>
+</body>
+</html>
