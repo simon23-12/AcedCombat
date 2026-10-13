@@ -25,7 +25,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* title */
 #title { justify-content: flex-end; padding-bottom: calc(40px + var(--sab)); background: none; }
-.title-art { position: absolute; inset: 0; background: url(assets/ui/title.jpg) center/cover no-repeat; opacity: .0; transition: opacity 1.2s; }
+.title-art { position: absolute; inset: 0; background: url(assets/ui/og.jpg) 47% 40%/cover no-repeat; opacity: .0; transition: opacity 1.2s; }
 #title.art .title-art { opacity: 1; }
 #title.live .title-art { opacity: 0; }
 .title-in { position: relative; display: flex; flex-direction: column; gap: 10px; }

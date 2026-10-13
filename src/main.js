@@ -54,7 +54,7 @@ function planeUnlocked(k) { const u = PLANES[k].unlock; return !u || !!progress.
 function missionUnlocked(i) { return i === 0 || i === 1 || !!progress.cleared[MISSIONS[i - 1].id]; }
 
 async function boot() {
-  { const im = new Image(); im.onload = () => $('title').classList.add('art'); im.src = 'assets/ui/title.jpg'; }
+  { const im = new Image(); im.onload = () => $('title').classList.add('art'); im.src = 'assets/ui/og.jpg'; }
   const canvas = $('gl');
   let renderer;
   try {
