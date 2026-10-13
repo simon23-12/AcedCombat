@@ -395,7 +395,8 @@ export class Game {
     const { pitch, bank } = p.attitude();
     const vs = p.vel.y - (p.hover > 0.5 ? 0 : 0);
     const relSpd = p.speed;
-    const ok = p.gearDown && Math.abs(bank) < 0.35 && pitch > -0.2 && pitch < 0.35 && vs > -11;
+    const ok = p.gearDown && Math.abs(bank) < 0.45 && pitch > -0.22 && pitch < 0.35 && vs > -11;
+    this.lastTouch = { bank: +bank.toFixed(2), pitch: +pitch.toFixed(2), vs: +vs.toFixed(1), spd: Math.round(relSpd), gear: p.gearDown };
     if (!ok) { this.killPlayer(p.gearDown ? 'CRASHED ON DECK' : 'GEAR UP LANDING'); return; }
     this.deckLocal = l.clone(); this.deckLocal.y = c.deckZ + p.def.gearH;
     const f = p.forward(_v2);
@@ -565,7 +566,11 @@ export class Game {
       if (this.target.def.ship) tp.y = Math.max(900, p.pos.y);
     } else tp = p.pos.clone().add(new THREE.Vector3(0, 0, 3000));
     if (tp.y < 600 && !this.landing) tp.y = 600;
-    if (this.landing) { this.input.hold.gun = 0; const s2 = steerTo(p, tp, 0.8); return { mode: 'ai', rollCmd: s2.rollCmd, pitchCmd: s2.pitchCmd, yawCmd: 0, boost: false, brake: p.speed > 80 }; }
+    if (this.landing) {
+      this.input.hold.gun = 0;
+      const l = _v.subVectors(tp, p.pos).applyQuaternion(_q.copy(p.quat).invert());
+      return { mode: 'assist', steer: clamp(Math.atan2(-l.x, l.z) * 2.5, -1, 1), pitch: clamp(Math.atan2(l.y, l.z) * 5, -1, 1), boost: false, brake: p.speed > 82 };
+    }
     const s = steerTo(p, tp, 1);
     const inc = this.weapons.incoming(p);
     if (inc.length && inc[0].pos.distanceTo(p.pos) < 1500) { s.rollCmd = 1; s.pitchCmd = 1; const { bank } = p.attitude(); if (Math.abs(bank) > 1.4) s.rollCmd = -0.3; }
@@ -597,6 +602,10 @@ export class Game {
       if (!onDeck) {
         let ctrl = { mode: this.settings.expert ? 'expert' : 'assist', steer: inp.steer, pitch: inp.pitch, boost: !!inp.boostV, brake: !!inp.brakeV };
         if (this.autoPilot) ctrl = this.autoCtrl(dt);
+        if (p.hover > 0.5 && this.carrier) {
+          const l = this.carrier.toLocal(p.pos, _v);
+          if (this.carrier.onDeck(l) && l.y - this.carrier.deckZ < 12 && ctrl.pitch > -0.3) ctrl.pitch = -0.3;
+        }
         p.update(dt, ctrl);
         this.checkTouchdown(dt);
       }
@@ -701,10 +710,14 @@ export class Game {
       const gear = e.view.userData.parts.gear;
       if (gear) gear.visible = !!e.gearDown;
       if (e.isPlayer && e.model.material.userData.burner) e.model.material.userData.burner.value = 0.02 + Math.max(0, e.burner - 0.25) * 1.3;
+      if (e.alive && e.burner > 0.4 && e.burners.length && this.camera.position.distanceToSquared(e.pos) < 1500 * 1500) {
+        const k = (e.burner - 0.4) / 0.6;
+        for (const ab of e.burners) this.fx.flash(_v.copy(ab.position).add(_v2.set(0, 0, -1.2)).applyQuaternion(e.quat).add(e.pos), 2.2 + 3.5 * k, [2.6 * k, 1.5 * k, 1.2 * k], 0.03, e.vel);
+      }
       for (const ab of e.burners) { ab.material.uniforms.power.value = e.alive ? clamp((e.burner - 0.22) * 1.35, 0, 1) : 0; ab.material.uniforms.time.value += dt; ab.scale.setScalar(0.6 + 0.5 * e.burner); }
       // wingtip vortices / vapour at high g
       if (e.alive && e.tips.length && this.camera.position.distanceToSquared(e.pos) < 2500 * 2500) {
-        const k = clamp((e.g - 3.0) / 4, 0, 1) * clamp(e.speed / 150, 0, 1);
+        const k = clamp((e.g - 3.5) / 3.5, 0, 1) * clamp(e.speed / 150, 0, 1);
         if (!e.vortex && k > 0.05) e.vortex = e.tips.map(() => this.fx.trails.create({ width: 0.5, grow: 0.6, life: 1.4, alpha: 0.6, minDist: 4 }));
         if (e.vortex) e.tips.forEach((tp, i) => this.fx.trails.push(e.vortex[i], _v.copy(tp).applyQuaternion(e.quat).add(e.pos), k));
         if (k > 0.5 && e.isPlayer && Math.random() < dt * 30) {

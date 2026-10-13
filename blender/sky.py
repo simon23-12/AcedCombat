@@ -19,9 +19,9 @@ PRESETS = {
     "clouds": dict(cam=3400, sun_el=38, sun_az=200, sun=4.2, sky=0.42, base=1500, top=2700, cov=0.52, ocean=True, cirrus=0.6,
                    tint=(1.0, 0.98, 0.95), towers=True),
     "sunset": dict(cam=500, sun_el=2.6, sun_az=250, sun=5.0, sky=0.6, base=1300, top=2600, cov=0.46, ocean=True, cirrus=1.0,
-                   tint=(1.0, 0.55, 0.28), towers=False, air=2.2, aer=2.0),
+                   tint=(1.0, 0.55, 0.28), towers=False, air=2.2, aer=2.0, near_clear=True),
     "dawn":   dict(cam=900, sun_el=6.0, sun_az=95, sun=3.6, sky=0.55, base=1600, top=2600, cov=0.48, ocean=True, cirrus=0.8,
-                   tint=(1.0, 0.70, 0.62), towers=False, air=1.7, aer=1.4),
+                   tint=(1.0, 0.70, 0.62), towers=False, air=1.7, aer=1.4, near_clear=True),
     # cover art: sunset above a sea of clouds
     "hero":   dict(cam=3300, sun_el=4.0, sun_az=226, sun=5.5, sky=0.6, base=1300, top=2600, cov=0.62, ocean=True, cirrus=1.0,
                    tint=(1.0, 0.58, 0.3), towers=True, air=2.2, aer=2.0),
@@ -153,6 +153,10 @@ dens = mt.mul(mt.math("MAXIMUM", dens, 0.0), 0.12)
 # fade to nothing far away so the slab has no visible edge
 rr = mt.vmath("LENGTH", mt.vmath("MULTIPLY", pos, (2.0, 2.0, 0.0)))
 dens = mt.mul(dens, mt.smooth(1.0, 0.75, rr))
+if P.get("near_clear"):
+    # the game renders the near clouds in real time: keep only the distant cloud bands in the panorama
+    hd = mt.vmath("LENGTH", mt.vmath("MULTIPLY", pos, (2 * R, 2 * R, 0.0)))
+    dens = mt.mul(dens, mt.smooth(16000.0, 28000.0, hd))
 mt.L(dens, vol.inputs["Density"])
 mt.L(vol.outputs[0], mo.inputs["Volume"])
 slab.data.materials.append(m)

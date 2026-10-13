@@ -134,7 +134,8 @@ export class Plane {
     this.forward(this.vel).multiplyScalar(this.speed);
     if (this.hover > 0) this.vel.y += this.vs * this.hover;
     if (this.stall > 0) this.vel.y -= this.stall * 18;
-    this.g = 1 + (this.speed * this.pitchRate) / G;
+    // arcade turn rates are high: scale the displayed / effect load factor into a believable 1..9 g
+    this.g = clamp(1 + (this.speed * Math.abs(this.pitchRate)) / G * 0.33, -3, 9.5);
     this.pos.addScaledVector(this.vel, dt);
   }
 }

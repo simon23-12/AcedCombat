@@ -138,7 +138,7 @@ export class HUD {
     for (let d = -90; d <= 90; d += 10) {
       const y = -(THREE.MathUtils.degToRad(d) - camPitch) * fovPx * 0.98;
       if (Math.abs(y) > this.h * 0.24) continue;
-      const w = d === 0 ? this.w * 0.26 : this.w * 0.09, gap = d === 0 ? 0 : 26;
+      const w = d === 0 ? this.w * 0.16 : this.w * 0.08, gap = d === 0 ? 30 : 26;
       c.beginPath();
       if (d < 0) c.setLineDash([5, 4]); else c.setLineDash([]);
       c.moveTo(-gap - w, y); c.lineTo(-gap, y); c.moveTo(gap, y); c.lineTo(gap + w, y);

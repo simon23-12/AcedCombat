@@ -233,14 +233,14 @@ export const MISSIONS = [
       g.objective('Defeat the Crimson squadron');
       const aces = [];
       for (let i = 0; i < 3; i++) aces.push(await g.spawnPlane('ace', V((i - 1) * 500, 4400, 5000 + i * 200), 180, { mission: true, label: 'CRIMSON ' + (i + 2), orbit: V(0, 4200, 0), alt: 4200, skill: 0.85 }));
-      const lead = await g.spawnPlane('ace', V(0, 4800, 6500), 180, { mission: true, label: 'CRIMSON 1', orbit: V(0, 4400, 0), alt: 4400, skill: 1.0, hp: 900 });
+      const lead = await g.spawnPlane('ace', V(0, 4800, 6500), 180, { mission: true, label: 'CRIMSON 1', orbit: V(0, 4400, 0), alt: 4400, skill: 1.0, hp: 520 });
       await g.wait(5);
       g.say('m6_crimson1');
       await g.until(() => aces.filter((a) => !a.alive).length >= 1);
       g.say('m6_crimson2');
       await g.until(() => g.allDead(aces));
       g.say('m6_lead');
-      await g.until(() => lead.hp < 450 || !lead.alive);
+      await g.until(() => lead.hp < 260 || !lead.alive);
       g.say('m6_crimson3');
       await g.until(() => !lead.alive);
       g.say('m6_end');

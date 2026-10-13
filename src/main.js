@@ -54,6 +54,7 @@ function planeUnlocked(k) { const u = PLANES[k].unlock; return !u || !!progress.
 function missionUnlocked(i) { return i === 0 || i === 1 || !!progress.cleared[MISSIONS[i - 1].id]; }
 
 async function boot() {
+  { const im = new Image(); im.onload = () => $('title').classList.add('art'); im.src = 'assets/ui/title.jpg'; }
   const canvas = $('gl');
   let renderer;
   try {
@@ -195,9 +196,13 @@ async function boot() {
   }));
 
   $('press').addEventListener('click', async () => {
-    await audio.start();
+    // both permission prompts must start inside the tap (iOS user activation), so kick them off together
+    const pm = input.requestMotion();
+    audio.unlockMusic();
+    const pa = audio.start();
+    const granted = await pm;
+    await pa;
     audio.setVol('music', settings.music); audio.setVol('sfx', settings.sfx); audio.setVol('voice', settings.voice);
-    const granted = await input.requestMotion();
     input.bindButtons();
     audio.music('menu');
     audio.select();
@@ -389,6 +394,7 @@ async function boot() {
   // title is ready
   $('load').classList.add('hidden');
   $('press').classList.remove('hidden');
+  setTimeout(() => $('title').classList.add('live'), 300);
   window.__booted = true;
   if (downgraded) hud.message('GRAPHICS LOWERED TO ' + tier.name.toUpperCase(), 'warn', 4);
   window.__ac = { game, renderer, scene, camera, post, clouds, sky, ocean, fx, audio, input, state, tier, show, carrier, MISSIONS };

@@ -135,6 +135,7 @@ export class Weapons {
       if (m.dead) continue;
       m.life += dt;
       const W = m.W;
+      if (m.target && !m.target.alive && m.owner?.isPlayer) m.target = this.retarget(m, world);
       if (m.bomb) {
         m.vel.y -= 9.81 * dt;
         m.vel.multiplyScalar(Math.exp(-0.02 * dt));
@@ -181,7 +182,7 @@ export class Weapons {
           // arcade end-game: a hard-turning player shakes off enemy missiles
           if (m.target.isPlayer && m.team !== 'blue') {
             const g = m.target.g || 1;
-            const pMiss = clamp(0.3 + (g - 2) * 0.12 + (m.target.burner > 0.6 ? 0.05 : 0), 0.25, 0.8);
+            const pMiss = clamp(0.3 + (g - 2) * 0.09 + (m.target.burner > 0.6 ? 0.05 : 0), 0.25, 0.8);
             if (Math.random() < pMiss) { m.target = null; m.decoyed = true; world.hudMsg('MISSILE EVADED', 'ok'); }
             else hit = m.target;
           } else hit = m.target;
@@ -271,12 +272,28 @@ export class Weapons {
       if (m.pos.y < 2) fx.splash(m.pos, m.kind === 'mop' ? 4 : 2);
       fx.explosion(new THREE.Vector3(m.pos.x, Math.max(m.pos.y, 6), m.pos.z), m.kind === 'mop' ? 3.2 : 1.5);
       this.audio?.explosion(m.kind === 'mop' ? 1.5 : 1, world.camDist(m.pos));
-      if (!any && m.owner?.isPlayer) world.hudMsg('MISS', 'miss');
+      if (!any && m.owner?.isPlayer) {
+        world.hudMsg('MISS', 'miss');
+      }
       return;
     }
     fx.explosion(m.pos, 0.6, hit.vel);
     world.damage(hit, m.W.dmg * m.dmgMul, m.owner, m.kind, m.pos);
     this.audio?.explosion(0.6, world.camDist(m.pos));
+  }
+
+  /** pick a new target for a player weapon whose target died in flight */
+  retarget(m, world) {
+    let best = null, bd = m.bomb ? 1200 : 1800;
+    const list = m.bomb || m.kind === 'agm' ? world.ships : world.planes;
+    const dir = _v3.copy(m.vel).normalize();
+    for (const e of list) {
+      if (!e.alive || e.team === m.team) continue;
+      const d = m.bomb ? Math.hypot(e.pos.x - m.pos.x, e.pos.z - m.pos.z) : e.pos.distanceTo(m.pos);
+      if (!m.bomb && _v.subVectors(e.pos, m.pos).normalize().dot(dir) < 0.5) continue;
+      if (d < bd) { bd = d; best = e; }
+    }
+    return best;
   }
 
   /** missiles currently homing on `plane` */

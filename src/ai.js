@@ -47,7 +47,7 @@ export class PilotAI {
     this.orbitC = opts.orbit ? opts.orbit.clone() : null;
     this.alt = opts.alt ?? plane.pos.y;
     this.goal = opts.goal || null;          // bombers: entity to attack
-    this.aggroDist = opts.aggro ?? 9000;
+    this.aggroDist = opts.aggro ?? 22000;
     this.thinkT = Math.random();
     this.lead = new THREE.Vector3();
     this.ctrl = { mode: 'ai', rollCmd: 0, pitchCmd: 0, yawCmd: 0, boost: false, brake: false, throttle: 0.55 };

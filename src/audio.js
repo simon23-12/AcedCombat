@@ -59,15 +59,30 @@ export class AudioEngine {
   }
 
   // ------------------------------------------------------------------ music
+  /** iOS: media elements may only start inside a user gesture -> create and prime all of them in the first tap */
+  unlockMusic() {
+    for (const name of Object.keys(MUSIC)) {
+      if (this.tracks[name]) continue;
+      const el = new Audio(MUSIC[name]);
+      el.crossOrigin = 'anonymous'; el.preload = 'auto'; el.setAttribute('playsinline', '');
+      el.muted = true;
+      const p = el.play();
+      if (p) p.then(() => { if (this.cur !== name) { el.pause(); el.currentTime = 0; } el.muted = false; }).catch(() => { el.muted = false; });
+      this.tracks[name] = { name, el, g: null };
+    }
+  }
+
   music(name, { loop = true, fade = 1.5 } = {}) {
     if (!this.ctx) return;
     if (this.cur === name) return;
     const t = this.ctx.currentTime;
     if (this.cur && this.tracks[this.cur]) {
       const old = this.tracks[this.cur];
-      old.g.gain.cancelScheduledValues(t);
-      old.g.gain.setValueAtTime(old.g.gain.value, t);
-      old.g.gain.linearRampToValueAtTime(0, t + fade);
+      if (old.g) {
+        old.g.gain.cancelScheduledValues(t);
+        old.g.gain.setValueAtTime(old.g.gain.value, t);
+        old.g.gain.linearRampToValueAtTime(0, t + fade);
+      }
       setTimeout(() => { if (this.cur !== old.name) old.el.pause(); }, fade * 1000 + 100);
     }
     this.cur = name;
@@ -77,11 +92,15 @@ export class AudioEngine {
       const el = new Audio(MUSIC[name]);
       el.crossOrigin = 'anonymous'; el.preload = 'auto'; el.loop = loop;
       el.setAttribute('playsinline', '');
-      const src = this.ctx.createMediaElementSource(el);
+      tr = this.tracks[name] = { name, el, g: null };
+    }
+    if (!tr.g) {
+      const src = this.ctx.createMediaElementSource(tr.el);
       const g = this.ctx.createGain(); g.gain.value = 0;
       src.connect(g); g.connect(this.duck);
-      tr = this.tracks[name] = { name, el, g };
+      tr.g = g;
     }
+    tr.el.muted = false;
     tr.el.loop = loop;
     try { tr.el.currentTime = 0; } catch (_) {}
     tr.el.play().catch(() => {});

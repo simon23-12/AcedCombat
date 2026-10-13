@@ -54,7 +54,7 @@ export const PLANE_ORDER = ['f15', 'f35a', 'f22', 'f35b', 'b2'];
 
 export const ENEMIES = {
   bandit: { model: 'bandit', name: 'FIGHTER', hp: 100, cruise: 215, maxSpd: 330, pitch: 1.0, roll: 3.0, msl: true, gun: true, score: 300 },
-  ace:    { model: 'ace', name: 'ACE', hp: 380, cruise: 245, maxSpd: 380, pitch: 1.4, roll: 3.6, msl: true, gun: true, score: 1500, ace: true },
+  ace:    { model: 'ace', name: 'ACE', hp: 250, cruise: 245, maxSpd: 380, pitch: 1.4, roll: 3.6, msl: true, gun: true, score: 1500, ace: true },
   bomber: { model: 'bomber', name: 'BOMBER', hp: 260, cruise: 175, maxSpd: 220, pitch: 0.4, roll: 0.9, msl: false, gun: true, score: 500, big: true },
   drone:  { model: 'drone', name: 'DRONE', hp: 30, cruise: 120, maxSpd: 160, pitch: 0.6, roll: 1.5, msl: false, gun: false, score: 100 },
   destroyer: { model: 'destroyer', name: 'DESTROYER', hp: 420, ship: true, score: 800 },

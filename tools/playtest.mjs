@@ -5,14 +5,14 @@ const b = await puppeteer.launch({ executablePath: '/Applications/Google Chrome.
   args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'], defaultViewport: { width: 390, height: 844, deviceScaleFactor: 2, isMobile: true, hasTouch: true } });
 const p = await b.newPage();
 p.on('pageerror', (e) => console.log('[pageerror]', e.message));
-p.on('console', (msg) => { const t = msg.text(); if (/error|warn|missing/i.test(t) && !/icon|404|GPU stall/.test(t)) console.log('[page]', t.slice(0, 200)); });
+p.on('console', (msg) => { const t = msg.text(); if (/error|warn|missing|bomb/i.test(t) && !/icon|404|GPU stall/.test(t)) console.log('[page]', t.slice(0, 200)); });
 await p.goto(`http://localhost:8080/?q=${q}&fixed=1&nopause&auto&unlock=1`);
 await p.waitForFunction(() => window.__booted, { timeout: 90000 });
 await p.evaluate(async (m, plane) => {
   document.getElementById('press').click();
   await new Promise((r) => setTimeout(r, 400));
   const a = window.__ac;
-  window.__log = [];
+  window.__log = []; window.__dbg = 1;
   const g = a.game;
   const oh = g.hudMsg.bind(g); g.hudMsg = (t, k) => { window.__log.push((g.time || 0).toFixed(1) + ' MSG ' + t); oh(t, k); };
   const or = a.game.radio.say.bind(a.game.radio); a.game.radio.say = (id, pr) => { window.__log.push((g.time || 0).toFixed(1) + ' SAY ' + id); or(id, pr); };
