@@ -563,7 +563,7 @@ export class Game {
       else tp = this.carrier.glidePoint(Math.max(-60, a.along - Math.max(250, a.along * 0.25)));
     } else if (this.target && this.target.alive) {
       tp = this.target.pos.clone();
-      if (this.target.def.ship) tp.y = Math.max(900, p.pos.y);
+      if (this.target.def.ship) tp.y = p.pos.distanceTo(tp) > 4000 ? Math.max(1200, Math.min(p.pos.y, 2500)) : 400;
     } else tp = p.pos.clone().add(new THREE.Vector3(0, 0, 3000));
     if (tp.y < 600 && !this.landing) tp.y = 600;
     if (this.landing) {

@@ -201,10 +201,10 @@ export const MISSIONS = [
       g.objective('');
       await g.wait(4);
       g.say('m5_start');
-      g.objective('Stop the bomber raid');
+      g.objective('Stop the bomber raid - bombers are priority targets');
       const c = g.carrier;
       const bombers = [], esc = [];
-      for (let i = 0; i < 6; i++) bombers.push(await g.spawnPlane('bomber', V(-3000 + i * 1200, 2400 + (i % 2) * 300, 21000 + (i % 3) * 800), 180, { role: 'bomber', goal: c, alt: 2300 + (i % 2) * 300, mission: true, label: 'BOMBER' }));
+      for (let i = 0; i < 6; i++) bombers.push(await g.spawnPlane('bomber', V(-3000 + i * 1200, 2400 + (i % 2) * 300, 26000 + (i % 3) * 900), 180, { role: 'bomber', goal: c, alt: 2300 + (i % 2) * 300, mission: true, label: 'BOMBER' }));
       for (let i = 0; i < 4; i++) esc.push(await g.spawnPlane('bandit', V(-2000 + i * 1300, 3200, 19000), 180, { orbit: V(0, 3000, 12000), alt: 3000 }));
       let hit = false;
       const chk = () => { for (const b of bombers) if (b.alive && Math.hypot(b.pos.x - c.pos.x, b.pos.z - c.pos.z) < 1500) hit = true; return hit; };

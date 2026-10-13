@@ -198,7 +198,8 @@ export class ShipAI {
       aim.x += (Math.random() - 0.5) * 0.05; aim.y += (Math.random() - 0.5) * 0.05; aim.z += (Math.random() - 0.5) * 0.05;
       w.weapons.flak(from, aim.normalize(), s.team);
     }
-    if (s.def.sam !== false && bd < 6000 && bd > 900 && this.samT <= 0 && w.missilesAt(tgt) < (tgt.isPlayer ? w.maxIncoming : 1)) {
+    if (s.def.sam !== false && bd < 6000 && bd > 900 && this.samT <= 0 && w.missilesAt(tgt) < (tgt.isPlayer ? w.maxIncoming : 1) && (!tgt.isPlayer || w.playerMslCd <= 0)) {
+      if (tgt.isPlayer) w.playerMslCd = 5;
       this.samT = 9 + Math.random() * 8;
       const from = _v.copy(s.pos); from.y += 14;
       w.weapons.launch('sam', null, from, tgt, { team: s.team, dir: new THREE.Vector3(0, 1, 0) });

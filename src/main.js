@@ -148,6 +148,7 @@ async function boot() {
       ab.position.copy(m.marks[n]); show.group.add(ab); show.burners.push(ab);
     }
     show.model = m; show.key = key;
+    if (m.material.userData.burner) m.material.userData.burner.value = 0.03;
     scene.add(show.group);
   }
   await showPlane(progress.plane in PLANES && planeUnlocked(progress.plane) ? progress.plane : 'f15');
